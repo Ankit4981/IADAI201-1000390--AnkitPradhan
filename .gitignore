@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Virtual Environment
+.venv/
+venv/
+env/
+ENV/
+
+# Datasets and large archives
+pklot.zip
+Database/
+Database_small/
+parkvision_data/
+runs/
+yolov8n.pt
+
+# Scratch scripts
+make_small.py
+untitled20.py
+
+# System & IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
