@@ -717,8 +717,8 @@ md(
 
 # --------------------------------------------------------------------------- credits footer
 
-STUDENT_NAME = ""  # Ankit Pradhan
-who = f"<strong>Student:</strong> {html.escape(Ankit Pradhan)} &nbsp;·&nbsp; " if Ankit Pradhan else ""
+STUDENT_NAME = "Ankit Pradhan"
+who = f"<strong>Student:</strong> {html.escape(STUDENT_NAME)} &nbsp;·&nbsp; " if STUDENT_NAME else ""
 md(
     f"""<div class="pv-card" style="margin-top:24px;font-size:13px;color:var(--muted)">
     <div class="pv-lbl">Credits &amp; Citation</div>
