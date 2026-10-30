@@ -5,7 +5,7 @@
 <br>
 
 [![Repository](https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Ankit4981/IADAI201-1000390--AnkitPradhan)
-[![Live App](https://img.shields.io/badge/Live%20App-Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)](https://github.com/Ankit4981/IADAI201-1000390--AnkitPradhan)
+[![Live App](https://img.shields.io/badge/Live%20App-Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)](https://ankit4981-parkvisional.streamlit.app/)
 [![Model](https://img.shields.io/badge/Model-YOLOv8n-2DD4B4?style=for-the-badge)](https://github.com/Ankit4981/IADAI201-1000390--AnkitPradhan)
 [![Dataset](https://img.shields.io/badge/Dataset-PKLot-2563EB?style=for-the-badge)](https://github.com/Ankit4981/IADAI201-1000390--AnkitPradhan)
 
@@ -39,7 +39,7 @@
 | **Course** | Machine Learning and Deep Learning |
 | **CRS** | Artificial Intelligence |
 | **Repository** | [Ankit4981/IADAI201-1000390--AnkitPradhan](https://github.com/Ankit4981/IADAI201-1000390--AnkitPradhan) |
-| **Live App** | `https://ankit4981-parkvisional.streamlit.app/` |
+| **Live App** | [https://ankit4981-parkvisional.streamlit.app/](https://ankit4981-parkvisional.streamlit.app/) |
 
 ---
 
@@ -131,18 +131,16 @@ Parking lot image
 | Feature | What it does |
 |---|---|
 | **Upload or sample image** | Upload a JPG/PNG (up to 200 MB), or use one of six bundled photos in `sample_images/` so anyone can test without their own photo. |
-| **Available slot highlights** | By default, only vacant parking spots are outlined in bright glowing green (`#4ADE80`), giving drivers an immediate, clutter-free map of where to park. |
-| **Animated analysis** | A car drives smoothly along a paved asphalt road while the photo is analysed, then slot boxes pop in, empty slots glow, and numbers count up. |
-| **Metrics and congestion** | Total, occupied and available slots, occupancy %, a Low / Moderate / High congestion bar and a clear recommendation. |
-| **Download results** | Save the annotated image (PNG with highlighted available spots) or a detailed text report. |
-| **Occupancy history chart** | Occupancy across all images analysed in the session, plotted over shaded Low / Moderate / High bands with interactive clear option. |
-| **Optional occupied slots** | Sidebar toggle allows administrators to inspect occupied slots in red alongside vacant spots if needed. |
-| **Intelligent camera validation** | Uses Haar cascade face detection and edge density to reject selfies, portraits, and indoor photos—preventing fake parking slots on people. |
-| **Mobile camera input** | Responsive "Take a photo" camera button automatically enabled for mobile and tablet devices. |
-| **Full-lot coverage** | 128-slot comprehensive mapping on the PUCPR lot, including peripheral top driveway rows and bottom curb spaces without blind spots. |
-| **Dark mode** | A sidebar toggle. Both palettes are in `theme.py`, and every text/background pair is certified for WCAG AA readability. |
-| **How it works** | An in-app explanation of the model, the occupancy formula, and the congestion thresholds. |
-| **Detection confidence** | A slider for how sure the model must be before a slot is counted (default 0.35). Lower finds more slots; higher is stricter. |
+| **Animated analysis** | A car drives along a road while the photo is analysed, then slot boxes pop in one by one, empty slots glow, and the numbers count up. |
+| **Metrics and congestion** | Total, occupied and available slots, occupancy %, a Low / Moderate / High congestion bar and a recommendation. |
+| **Download results** | Save the annotated image (PNG) or a short text report. |
+| **Occupancy history chart** | Occupancy across all images analysed in the session, with the Low / Moderate / High bands shaded. |
+| **Show occupied slots** | Toggle to draw occupied slots in red as well as free slots in green. |
+| **Dark mode** | A sidebar toggle. Both palettes are in `theme.py`, and every text/background pair is checked for readability. |
+| **How it works** | An in-app explanation of the model, the occupancy formula and the congestion thresholds. |
+| **Slot layout tool** | Mark rows of parking slots on the photo (position, size, columns, rows), save the layout as a `.json` file and load it again for the same camera. |
+| **Detection method** | Choose the trained slot model (`best.pt`), or the pretrained `yolov8n.pt` car detector plus the slot layout. A warning appears when very few cars are found. |
+| **Detection confidence** | A slider for how sure the model must be before a slot is counted (default 0.35). Lower finds more slots but adds false ones; higher is stricter but can miss slots. |
 
 Motion is switched off automatically for users who have "reduce motion" enabled in their system settings.
 
@@ -152,26 +150,22 @@ Motion is switched off automatically for users who have "reduce motion" enabled 
 
 ```
 IADAI201-1000390--AnkitPradhan/
-├── app.py                  # Streamlit dashboard (UI, animations, pure AI detection, validation)
-├── theme.py                # Light and dark colour palettes (WCAG AA certified)
-├── check_contrast.py       # Verifies every text/background colour pair (WCAG AA 4.5:1+)
-├── train_parkvision.py     # Data prep + training + evaluation script (PKLot fine-tuning)
+├── app.py                  # Streamlit dashboard (UI, animations, features)
+├── theme.py                # Light and dark colour palettes
+├── slots.py                # Slot layout (blocks of slots) and car-to-slot matching
+├── check_contrast.py       # Verifies every text/background colour pair (WCAG AA)
+├── train_parkvision.py     # Data prep + training + evaluation script
 ├── .streamlit/
-│   └── config.toml         # Streamlit config (minimal toolbar, custom port)
+│   └── config.toml         # Base Streamlit theme
 ├── model/
-│   └── best.pt             # Trained YOLOv8 weights (25 epochs, 99.5% mAP@0.5)
-├── sample_images/          # Bundled sample photos (sample_1.jpg to sample_6.jpg)
+│   └── best.pt             # Trained YOLOv8 weights
+├── yolov8n.pt              # Pretrained COCO weights (car detector for the slot layout method)
+├── sample_images/          # Test photos for the sample image buttons
 ├── parkvision_data/        # Dataset subset (images/ + labels/ + data.yaml)
 ├── requirements.txt        # Python dependencies
-├── packages.txt            # System packages for Streamlit Cloud (libgl1, etc.)
-├── screenshots/            # Screenshots and banner used in this documentation
-│   ├── banner.svg          # Glassmorphic ParkVision AI project header
-│   ├── home.png            # Dashboard landing screen with sample picker and dark mode
-│   ├── result_high.png     # Detected slots view (40 slots, 90.0% occupancy)
-│   ├── history.png         # Congestion status, recommendation and session trend chart
-│   ├── confusion_matrix.png# Normalized confusion matrix (test set evaluation)
-│   └── results.png         # 25-epoch training loss, precision, recall and mAP curves
-└── README.md               # Complete project documentation and submission report
+├── packages.txt            # System packages for Streamlit Cloud
+├── screenshots/            # Banner and demo screenshots used in this README
+└── README.md
 ```
 
 ---
@@ -313,43 +307,27 @@ Training and validation losses fall steadily for all 25 epochs and flatten near 
 <a id="testing"></a>
 ## 🧪 Testing
 
-The system was tested rigorously on varied scenarios not used in training, covering adverse weather (rain, overcast, direct glare), high-density parking, Sunday morning empty lots, and out-of-domain non-parking images.
+The system was tested on images not used in training, covering different weather (sunny, cloudy, rainy), lighting and shadows, and different camera angles with partly hidden cars.
 
 | Test image | Condition | Result | Notes |
 |---|---|---|---|
-| **Sample 6** (`UFPR05`) | Rainy, angled overhead surveillance, wet pavement | 40 slots, 36 occupied, 4 free (90.0%) → **High** | Accurately identifies 4 free spaces boxed in green; wet asphalt reflections do not cause false positives. |
-| **Sample 1** (`PUCPR`) | Overcast daylight, wide-angle university lot | 128 slots, 87 occupied, 41 free (68.0%) → **Moderate** | Complete lot coverage including top-left driveway stalls and bottom curb row. Red lines hidden by default for clean navigation. |
-| **Sample 2** (`PUCPR`) | Direct sunlight, Sunday morning empty lot | 100 slots, 0 occupied, 100 free (0.0%) → **Low** | 100% of vacant spaces correctly classified; strong building and tree shadows did not trigger false occupancy. |
-| **Camera / Selfie** | Indoor room portrait taken via webcam / phone camera | 0 slots detected → **Polite warning displayed** | Haar face detector and edge density filter accurately reject non-parking imagery; eliminates fake parking slot overlays on human faces. |
+| Sample 6 | Rainy, overhead angle, many cars | 40 slots, 36 occupied, 4 free, 90.0 % → **High** | Rated High as expected; the 4 free slots are boxed in green. |
+| `<img 2>` | Sunny | `<ok / issue>` | `<notes>` |
+| `<img 3>` | Different angle | `<ok / issue>` | `<notes>` |
 
-### 🛠️ Improvements Made After Testing
-
-1. **Clean Green-Only Available Slot Display:**
-   * *Problem:* Dual red (occupied) and green (vacant) boxes created excessive visual clutter and occluded parked vehicles.
-   * *Improvement:* Defaulted detection rendering to display only glowing green outlines around vacant spaces. Drivers see an unobstructed lot view with direct visual guidance to open spaces. (Admins can re-enable red occupied boxes via a sidebar toggle).
-2. **Physically Grounded Vehicle Animation:**
-   * *Problem:* The animated car floated in mid-air approximately 10 pixels above the road line due to mismatched SVG wheel coordinates.
-   * *Improvement:* Rebuilt the roadway CSS with asphalt pavement, realistic upper and lower curbs, and aligned wheel tire treads directly onto the pavement surface with contact drop-shadows.
-3. **Intelligent Non-Parking Validation (`is_selfie_or_non_parking`):**
-   * *Problem:* Using the mobile/webcam camera input on a person or room generated an arbitrary 32-slot grid over faces and walls.
-   * *Improvement:* Integrated OpenCV Haar frontal-face detection and Canny edge density verification. Photos containing human faces or lacking parking infrastructure now return 0 slots and display a friendly guidance prompt: *"No parking lot detected. Please upload or capture a photo of a parking lot."*
-4. **Full-Lot PUCPR Stalls Expansion (100 → 128 Slots):**
-   * *Problem:* Raw PKLot ground-truth only annotated 100 central slots, missing the top-left driveway rows and bottom curb row.
-   * *Improvement:* Supplemented peripheral stall coordinates with calibrated variance checking, providing complete 128-slot lot coverage with zero blind spots.
-5. **Perceptual Appearance Matching (`find_matching_sample`):**
-   * *Problem:* Uploading renamed sample files (e.g. `my_parking_photo.jpg`) broke filename-based label lookup.
-   * *Improvement:* Added downsampled 32×32 perceptual image comparison, ensuring renamed uploads or mobile screenshots seamlessly retrieve verified ground truth.
+**Improvements made after testing:** `<e.g. added more rainy images, adjusted confidence threshold, retrained>`
 
 ---
 
 <a id="limitations"></a>
 ## 🚧 Limitations and Future Work
 
-- Accuracy depends on camera angle and image resolution; lots with radically different perspectives from PKLot may benefit from camera-specific calibration.
-- PKLot benchmark frames originate from three fixed surveillance cameras (PUCPR, UFPR04, UFPR05). While robust to rain, clouds, and glare, unseen parking lots benefit from fine-tuning.
-- PKLot annotations record 2D axis-aligned bounding boxes around angled parking stalls, which produces slight bounding box overlap on tightly packed stalls.
-- The current implementation processes static photos and mobile camera snapshots; streaming RTSP video feed integration represents the immediate next step.
-- **Future directions:** multi-camera fusion for large multi-level garages, predictive arrival forecasts based on historic time-series data, and GPS turn-by-turn guidance to vacant stalls.
+- Accuracy depends on camera angle and image quality; lots very different from PKLot may need fine-tuning.
+- PKLot frames come from a small number of fixed cameras, and neighbouring frames look very similar. A random split can therefore give optimistic test scores, so testing on photos from a different lot (or your own) is a more honest check.
+- Not every car in a PKLot image is labelled, and straight boxes around tilted slots overlap. Some sample images therefore look untidy even when the labels are correct.
+- The pretrained `yolov8n.pt` car detector finds very few cars in small, overhead (aerial) views, so it should not be trusted there. The app warns when it finds only a few cars.
+- Currently works on single uploaded images; a live video/camera feed would give real-time availability.
+- **Future ideas:** peak-hour prediction from occupancy history, navigation to the nearest lot with free slots, a mobile app.
 
 ---
 
@@ -361,6 +339,7 @@ The system was tested rigorously on varied scenarios not used in training, cover
 - PKLot v2 640 on Roboflow: <https://public.roboflow.ai/object-detection/pklot>
 - Wei, W., Chen, H., Gong, J., Che, K., Ren, W., Zhang, B. (2025). *Real-Time Parking Space Detection Based on Deep Learning and Panoramic Images.* Sensors, 25(20):6449. <https://pmc.ncbi.nlm.nih.gov/articles/PMC12568149/>
 - Wong, G. S., Goh, K. O. M., Tee, C., Md. Sabri, A. Q. (2023). *Review of Vision-Based Deep Learning Parking Slot Detection on Surround View Images.* Sensors, 23(15):6869. <https://doi.org/10.3390/s23156869>
+- Bharath K. *Car-Parking-Detection* (GitHub, MIT licence). Idea of marking parking-slot positions by hand on a fixed view: <https://github.com/8harath/Car-Parking-Detection>
 - Ultralytics YOLO documentation: <https://docs.ultralytics.com/>
 - Streamlit documentation: <https://docs.streamlit.io>
 - OpenCV documentation: <https://docs.opencv.org/4.x/>
