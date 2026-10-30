@@ -39,7 +39,7 @@
 | **Course** | Machine Learning and Deep Learning |
 | **CRS** | Artificial Intelligence |
 | **Repository** | [Ankit4981/IADAI201-1000390--AnkitPradhan](https://github.com/Ankit4981/IADAI201-1000390--AnkitPradhan) |
-| **Live App** | `<paste your Streamlit Cloud link here>` |
+| **Live App** | `https://ankit4981-parkvisional.streamlit.app/` |
 
 ---
 
